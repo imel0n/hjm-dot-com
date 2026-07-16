@@ -1,21 +1,32 @@
 <script setup>
+import { ref } from 'vue'
 import trafficCone from '@/assets/traffic-cone.png'
+import LoginForm from '@/components/auth/LoginForm.vue'
+
+const isLoginFormShown = ref(false)
+function showLoginForm() {
+  isLoginFormShown.value = !isLoginFormShown.value
+}
 </script>
 
 <template>
   <div class="main-container">
-    <img class="supporting-icon" :src="trafficCone" />
-    <h3 class="body-text">Work in Progress</h3>
+    <button class="show-login-button" @click="showLoginForm">
+      <img class="supporting-icon" :src="trafficCone" />
+    </button>
+    <div class="title-text">
+      <h3 v-if="!isLoginFormShown">Work in Progress</h3>
+      <h3 v-else>Login</h3>
+    </div>
+
+    <div v-if="isLoginFormShown">
+      <LoginForm />
+    </div>
   </div>
 </template>
 
 <style scoped>
 .main-container {
-  font-family: 'Helvetica Neue';
-  font-weight: 800;
-
-  /* background: #fbf5e9; */
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +41,11 @@ import trafficCone from '@/assets/traffic-cone.png'
   width: 48px;
 }
 
-.body-text {
-  margin: 0;
+.show-login-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0px;
+  padding: 0px;
 }
 </style>
